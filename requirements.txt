@@ -1,0 +1,8 @@
+crewai>=0.1.0
+google-generativeai>=0.3.0
+python-dotenv>=1.0.0
+opencv-python>=4.8.0
+scikit-image>=0.21.0
+Pillow>=10.0.0
+numpy>=1.24.0
+reportlab>=4.0.0
