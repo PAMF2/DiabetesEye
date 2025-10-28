@@ -1,0 +1,6 @@
+opencv-python-headless
+scikit-image
+numpy
+onnxruntime
+reportlab
+torch

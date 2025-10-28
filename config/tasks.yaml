@@ -1,0 +1,54 @@
+preprocessing_task:
+  description: >-
+    Execute o pré-processamento determinístico e a avaliação de qualidade da primeira imagem do exame.
+    Use a função interna para calcular score, foco e se a imagem é gradável.
+  expected_output: >-
+    JSON contendo quality_score (float), gradable (bool), issues (lista de strings), focus_measure (float ou null), explanation (string) e image_uri.
+  agent: preprocessing_agent
+  output_json: PreprocessingOutput
+
+dr_classification_task:
+  description: >-
+    Gere o laudo estruturado de retinopatia diabética usando a imagem já validada.
+    A saída deve informar grau, confiança e mapa de lesões.
+  expected_output: >-
+    JSON com dr_grade (int), confidence (float), lesions (objeto com tipo->contagem), image_uri e explanation em português.
+  agent: dr_classifier_agent
+  context:
+    - preprocessing_task
+  output_json: DRClassificationOutput
+
+progression_task:
+  description: >-
+    Combine os achados do classificador com os dados clínicos e calcule riscos de progressão em 6, 12 e 24 meses.
+  expected_output: >-
+    JSON com p6, p12, p24 (floats entre 0 e 1) e explanation detalhando a interpretação.
+  agent: progression_predictor_agent
+  context:
+    - dr_classification_task
+  output_json: ProgressionOutput
+
+clinical_integration_task:
+  description: >-
+    Integre os resultados de progressão e o histórico clínico para definir categoria de risco e frequência de monitoramento.
+  expected_output: >-
+    JSON com risk_category (string), monitoring (string) e explanation em português.
+  agent: clinical_integrator_agent
+  context:
+    - progression_task
+    - dr_classification_task
+  output_json: ClinicalIntegrationOutput
+
+followup_task:
+  description: >-
+    Gere relatórios do paciente e do médico e produza um plano de seguimento textual consolidando todo o pipeline.
+  expected_output: >-
+    JSON com patient_report (string path), physician_report (string path) e plan (string com recomendações).
+  agent: followup_planner_agent
+  context:
+    - clinical_integration_task
+    - progression_task
+  output_json: FollowUpOutput
+
+settings:
+  verbose: true
