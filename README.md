@@ -79,6 +79,12 @@ The system generates:
 - **Physician Report PDF**: `reports/patient-001_exam-001_physician.pdf`
 - **Follow-up Plan**: Personalized monitoring recommendations
 
+### Example Reports
+
+Check out the `reports/` folder for example PDF outputs:
+- `demo-patient-001_demo-exam-001_patient.pdf` - Sample patient report
+- `demo-patient-001_demo-exam-001_physician.pdf` - Sample physician report
+
 ### Analysis Results Structure
 
 ```json
