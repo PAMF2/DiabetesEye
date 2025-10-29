@@ -1,7 +1,17 @@
 """Configuration for DiabetesEye CrewAI agent."""
 
 import os
-from pydantic_settings import BaseSettings
+import logging
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import BaseModel, Field
+
+
+class LLMSettings(BaseModel):
+    """LLM configuration settings."""
+    model: str = Field(default="gemini-2.0-flash", description="LLM model to use")
+    preferred: str = Field(default="", description="Preferred LLM provider")
+    allow_openai: bool = Field(default=False, description="Allow OpenAI as fallback")
+    openai_api_key: str = Field(default="", description="OpenAI API key")
 
 
 class Settings(BaseSettings):
@@ -12,13 +22,14 @@ class Settings(BaseSettings):
     google_api_key: str = ""
 
     # LLM settings
-    llm_model: str = "gemini-2.0-flash"
-    llm_preferred: str = ""
-    llm_allow_openai: bool = False
-    openai_api_key: str = ""
+    llm: LLMSettings = LLMSettings()
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+    )
 
 
+# Create global config instance
 config = Settings()

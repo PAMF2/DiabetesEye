@@ -17,6 +17,7 @@ from crewai.project import (
 )
 from pydantic import BaseModel, Field
 
+from . import config
 from .agents.agents import (
     ClinicalIntegratorAgent,
     DRClassifierAgent,
