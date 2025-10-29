@@ -30,10 +30,7 @@ from .agents.llm import GeminiFlashLLM, LLMClient
 
 @CrewBase
 class DiabetesEyeCrew:
-    """Crew definition referencing YAML configs and deterministic agents."""
-
-    agents_config = "config/agents.yaml"
-    tasks_config = "config/tasks.yaml"
+    """Crew definition with programmatic agent and task configuration."""
 
     def __init__(self) -> None:
         self.shared_state: Dict[str, Any] = {}
