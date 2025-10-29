@@ -146,13 +146,15 @@ Thumbs.db
 
 # Project specific
 data/
-reports/
 logs/
 *.pdf
 *.jpg
 *.png
 *.tiff
 *.tif
+
+# Allow example reports
+!reports/*.pdf
 
 # Temporary files
 *.tmp
