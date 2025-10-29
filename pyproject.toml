@@ -1,0 +1,22 @@
+[project]
+name = "diabeteseye"
+version = "0.1.0"
+description = "DiabetesEye: AI system for diabetic retinopathy analysis using CrewAI and Gemini LLM"
+authors = [
+    {name = "DiabetesEye Team", email = "team@diabeteseye.com"}
+]
+dependencies = [
+    "crewai>=0.1.0",
+    "google-generativeai>=0.3.0",
+    "python-dotenv>=1.0.0",
+    "opencv-python>=4.8.0",
+    "scikit-image>=0.21.0",
+    "Pillow>=10.0.0",
+    "numpy>=1.24.0",
+    "reportlab>=4.0.0"
+]
+requires-python = ">=3.8"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
